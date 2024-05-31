@@ -7,7 +7,6 @@ const App = () => {
     const [data, setData] = useState([]);
 
     const addData = async (data) => {
-    // Send data to the API
         await fetch('http://localhost:5000/data', {
             method: 'POST',
             headers: {
@@ -17,11 +16,10 @@ const App = () => {
         });
 
         const updatedData = await fetchData();
-        setData(updatedData); // Assuming the API response structure
+        setData(updatedData);
     };
 
     const deleteData = async (id) => {
-        // Send delete request to the API
         await fetch(`http://localhost:5000/data/${id}`, {
             method: 'DELETE'
         });
@@ -31,17 +29,15 @@ const App = () => {
     };
 
     const fetchData = async () => {
-        // Fetch data from the API
         const response = await fetch('http://localhost:5000/data');
         const result = await response.json()
         return await result;
     };
 
     useEffect(() => {
-        // Fetch initial data when the component mounts
         const loadInitialData = async () => {
             const initialData = await fetchData();
-            setData(initialData); // Assuming the API response structure
+            setData(initialData);
         };
 
         loadInitialData();
