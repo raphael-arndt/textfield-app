@@ -6,7 +6,7 @@ const DataView = ({ data, deleteData }) => {
                 <ul>
                     {data.map((item) => (
                         <li key={item.id}>
-                            {item.data}
+                            {item.data[0].about ? item.data[0].about : item.data}
                             <button onClick={() => deleteData(item.id)}>Delete</button>
                         </li>
                     ))}

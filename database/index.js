@@ -12,12 +12,12 @@ app.use(bodyParser.json());
 
 // Define API routes
 app.post('/data', (req, res) => {
-    const { data } = req.body;
+    const data = JSON.stringify(req.body.data);
     db.run("INSERT INTO data (data) VALUES (?)", [data], function (err) {
         if (err) {
             return res.status(500).send(err.message);
         }
-        res.status(201).send({ id: this.lastID, data });
+        res.status(201).send({ id: this.lastID, data: req.body.data });
     });
 });
 
@@ -26,7 +26,12 @@ app.get('/data', (req, res) => {
         if (err) {
             return res.status(500).send(err.message);
         }
-        res.status(200).send(rows);
+        // Deserialize JSON string back to JavaScript object
+        const parsedRows = rows.map(row => ({
+            id: row.id,
+            data: JSON.parse(row.data)
+        }));
+        res.status(200).send(parsedRows);
     });
 });
 
