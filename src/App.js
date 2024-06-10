@@ -7,12 +7,16 @@ const App = () => {
     const [data, setData] = useState([]);
 
     const addData = async (data) => {
+        let body = data
+        if(!data.startsWith('{')){
+            body = JSON.stringify({ data: {text: data } });
+        }
         await fetch('http://localhost:5000/data', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ data: data })
+            body: body
         });
 
         const updatedData = await fetchData();

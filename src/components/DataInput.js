@@ -26,12 +26,15 @@ const DataInput = ({ addData }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input
-                type="text"
+            <textarea
+                className="textarea resize-ta"
                 value={input}
+                cols="40"
+                rows="10"
                 onChange={handleChange}
                 placeholder="Enter data"
             />
+            <br/>
             <button type="submit">Submit</button>
             {error && <p className={"error-text"}>{error}</p>}
         </form>

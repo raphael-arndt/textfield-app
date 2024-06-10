@@ -12,8 +12,7 @@ body {
 .App {
   text-align: center;
   padding: 20px;
-  max-width: 800px;
-  width: 100%;
+  max-width: 90vw;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -38,9 +37,14 @@ ul {
   padding: 0;
 }
 
+ul .inner {
+  margin-right: 10px;
+}
+
 li {
-  background: #fff;
-  margin: 10px 0;
+  background: #f4f4f9;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 10px 15px;
   border-radius: 5px;
   display: flex;
@@ -49,6 +53,7 @@ li {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   word-wrap: break-word;
   word-break: break-word;
+  text-align: left;
 }
 
 button {
@@ -64,6 +69,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  min-width: 5em;
 }
 
 button:hover {
@@ -97,4 +103,8 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #45a049;
+}
+
+textarea{
+  width: 80%;
 }
