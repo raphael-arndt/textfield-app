@@ -1,3 +1,6 @@
+
+console.log(Object.entries)
+
 const DataView = ({ data, deleteData }) => {
     if (data) {
         return (
@@ -5,16 +8,14 @@ const DataView = ({ data, deleteData }) => {
                 <h2>Data from Database</h2>
                 <ul>
                     {data.map((item) => (
-                        <li key={item.id}
+                        <li
                         >
                             <ul className="inner">
-                                {Object.entries(item.data).map(([key]) => (
-                                    !Array.isArray(item.data[key]) ?
-                                        <p>{key}: {item.data[key]}</p> :
-                                        <p>{key}: {JSON.stringify(item.data[key])}</p>
+                                {Object.entries(item).map(([key]) => (
+
+                                    <pre>{JSON.stringify(item, null, 2)}</pre>
                                 ))}
                             </ul>
-                            <button onClick={() => deleteData(item.id)}>Delete</button>
                         </li>
                     ))}
                 </ul>

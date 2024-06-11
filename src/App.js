@@ -11,7 +11,7 @@ const App = () => {
         if(!data.startsWith('{')){
             body = JSON.stringify({ data: {text: data } });
         }
-        await fetch('http://localhost:5000/data', {
+        await fetch('http://localhost:38080/Befund', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ const App = () => {
     console.log(data)
     return (
         <div className="App">
-            <h1>My React App</h1>
+            <h1>NeoCoreSimulator</h1>
             <DataInput addData={addData} />
             <DataView data={data} deleteData={deleteData}/>
         </div>

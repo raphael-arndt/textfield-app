@@ -12,7 +12,8 @@ app.use(bodyParser.json());
 
 // Define API routes
 app.post('/data', (req, res) => {
-    const data = JSON.stringify(req.body.data);
+    const data = JSON.stringify(req.body);
+    console.log(req.body);
     db.run("INSERT INTO data (data) VALUES (?)", [data], function (err) {
         if (err) {
             return res.status(500).send(err.message);
