@@ -23,8 +23,9 @@ const App = () => {
         setData(updatedData);
     };
 
-    const deleteData = async (id) => {
-        await fetch(`http://localhost:5000/data/${id}`, {
+    const deleteData = async () => {
+        console.log('test')
+        await fetch(`http://localhost:5000/data`, {
             method: 'DELETE'
         });
 
@@ -35,24 +36,32 @@ const App = () => {
     const fetchData = async () => {
         const response = await fetch('http://localhost:5000/data');
         const result = await response.json()
+
         return await result;
     };
 
-    useEffect(() => {
-        const loadInitialData = async () => {
-            const initialData = await fetchData();
-            setData(initialData);
-        };
+    const loadInitialData = async () => {
+        const initialData = await fetchData();
+        setData(initialData);
+    };
 
-        loadInitialData();
+    useEffect(() => {
+        const interval = setInterval(() => {
+            loadInitialData();
+        }, 1000); // 1000 milliseconds = 1 second
+        return () => clearInterval(interval); // This represents the cleanup function
     }, []);
 
-    console.log(data)
+    useEffect(() => {
+        document.title = "NeoCoreSim"
+    }, []);
+
     return (
+
         <div className="App">
             <h1>NeoCoreSimulator</h1>
-            <DataInput addData={addData} />
-            <DataView data={data} deleteData={deleteData}/>
+            <DataInput addData={addData} deleteData={deleteData} />
+            <DataView data={data} />
         </div>
     );
 }

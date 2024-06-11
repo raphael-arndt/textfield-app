@@ -1,24 +1,14 @@
 import React, { useState } from 'react';
 
-const DataInput = ({ addData }) => {
+const DataInput = ({ addData,deleteData }) => {
     const [input, setInput] = useState('');
-    const [error, setError] = useState('');
-
-
     const handleChange = (e) => {
         setInput(e.target.value);
-        if (e.target.value.trim() === '') {
-            setError('Input cannot be empty');
-        } else {
-            setError('');
-        }
     };
     const handleSubmit = (e) => {
         e.preventDefault();
         if (input.trim() === '') {
-            setError('Input cannot be empty');
         } else {
-            setError('');
             addData(input);
             setInput('');
         }
@@ -35,8 +25,9 @@ const DataInput = ({ addData }) => {
                 placeholder="Enter data"
             />
             <br/>
-            <button type="submit">Submit</button>
-            {error && <p className={"error-text"}>{error}</p>}
+            <button type="submit" style={{background: "#991355"}}>Submit</button>
+
+            <button onClick={deleteData}>Delete</button>
         </form>
     );
 };

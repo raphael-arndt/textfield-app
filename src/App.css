@@ -8,11 +8,14 @@ body {
   align-items: center;
   min-height: 100vh;
 }
-
+.root{
+  width: 90%;
+}
 .App {
   text-align: center;
   padding: 20px;
-  max-width: 90vw;
+  /*max-width: 90vw;*/
+  width: 900px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
