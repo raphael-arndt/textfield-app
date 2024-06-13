@@ -1,15 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
-const DataInput = ({ addData, deleteData, addFavorite, favoriteData }) => {
-    const [input, setInput] = useState('');
+const DataInput = ({ addData, deleteData, addFavorite, input, setInput }) => {
     const [favoriteName, setFavoriteName] = useState('');
     const [toggleFavorite, setToggleFavorite] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [currentData, setCurrentData] = useState('');
-
-    useEffect(() => {
-        setInput(favoriteData);
-    }, [favoriteData]);
 
     const handleChange = (e) => {
         setInput(e.target.value);

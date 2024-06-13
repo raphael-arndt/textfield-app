@@ -8,6 +8,8 @@ const App = () => {
     const [data, setData] = useState([]);
     const [favorites, setFavorites] = useState([]);
     const [favoriteData, setFavoriteData] = useState('');
+    const [input, setInput] = useState('');
+
 
     const addData = async (data) => {
         let body = data
@@ -100,10 +102,10 @@ const App = () => {
         <div className="App">
             <h1>NeoCoreSimulator</h1>
             <DataInput addData={addData} deleteData={deleteDataAndFavorites} addFavorite={addFavorite}
-                       favoriteData={favoriteData} setFavoriteData={setFavoriteData} />
+                       input={input} setInput={setInput} />
             <div className="data-favorite-container">
                 <DataView data={data}/>
-                <FavoriteView favorites={favorites} setFavoriteData={setFavoriteData}/>
+                <FavoriteView favorites={favorites} setInput={setInput}/>
             </div>
         </div>
     );

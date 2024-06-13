@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FavoritesView = ({ favorites, setFavoriteData }) => {
+const FavoritesView = ({ favorites, setInput }) => {
     return (
         <div>
             <h2>Favorites</h2>
@@ -10,7 +10,7 @@ const FavoritesView = ({ favorites, setFavoriteData }) => {
                         <button
                             style={{width: "100%"}}
                             onClick={() => {
-                                setFavoriteData(favorite.data);
+                                setInput(favorite.data);
                             }}
                         >
                             {favorite.name}
