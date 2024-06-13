@@ -45,6 +45,41 @@ app.delete('/data', (req, res) => {
     });
 });
 
+    app.post('/favorites', (req, res) => {
+    // const { dataId, name } = req.body;
+    const { data, name } = req.body;
+    db.run("INSERT INTO favorites (data, name) VALUES (?, ?)", [data, name], function (err) {
+        if (err) {
+            return res.status(500).send(err.message);
+        }
+        res.status(201).send({ id: this.lastID, data: data, name: name });
+    });
+});
+
+app.get('/favorites', (req, res) => {
+    db.all("SELECT * FROM favorites", [], (err, rows) => {
+        if (err) {
+            return res.status(500).send(err.message);
+        }
+        const parsedRows = rows.map(row => ({
+            id: row.id,
+            data: row.data,
+            name: row.name
+        }));
+        res.status(200).send(parsedRows);
+    });
+});
+
+app.delete('/favorites', (req, res) => {
+    const { id } = req.params;
+    db.run("DELETE FROM favorites", function (err) {
+        if (err) {
+            return res.status(500).send(err.message);
+        }
+        res.status(200).send({ message: 'Favorite deleted', id });
+    });
+});
+
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
