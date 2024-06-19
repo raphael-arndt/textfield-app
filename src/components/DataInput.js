@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 
 const DataInput = ({ addData, deleteData, addFavorite, input, setInput }) => {
     const [favoriteName, setFavoriteName] = useState('');
-    const [toggleFavorite, setToggleFavorite] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [currentData, setCurrentData] = useState('');
 
@@ -19,18 +18,21 @@ const DataInput = ({ addData, deleteData, addFavorite, input, setInput }) => {
          if (input.trim() === '')
              return;
 
-
-         if (toggleFavorite) {
-             setShowPopup(true);
-             setCurrentData(input)
-             document.body.style.overflow = 'hidden';
-         } else {
-             addData(input)
-             setInput('');
-         }
+         addData(input)
+         setInput('');
      };
 
-    const handleFavoriteSubmit = async (e) => {
+     const handleFavoriteSubmit = async (e) => {
+         e.preventDefault();
+         if (input.trim() === '')
+             return;
+
+         setShowPopup(true);
+         setCurrentData(input)
+         document.body.style.overflow = 'hidden';
+     };
+
+    const handleFavoriteNameSubmit = async (e) => {
         e.preventDefault();
         if (favoriteName.trim() === '') {
             return;
@@ -43,13 +45,12 @@ const DataInput = ({ addData, deleteData, addFavorite, input, setInput }) => {
         setShowPopup(false);
         setFavoriteName('');
         setInput('');
-        setToggleFavorite(false);
         document.body.style.overflow = 'auto';
     };
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <textarea
                     className="textarea resize-ta"
                     value={input}
@@ -59,22 +60,15 @@ const DataInput = ({ addData, deleteData, addFavorite, input, setInput }) => {
                     placeholder="Enter data"
                 />
                 <br/>
-                <button type="submit">Submit</button>
-                <button onClick={() => setToggleFavorite(true)} type="submit">Submit as Favorite</button>
-                {/*<button*/}
-                {/*    className="favorite-button"*/}
-                {/*    type="button"*/}
-                {/*    onClick={() => setToggleFavorite(!toggleFavorite)}*/}
-                {/*>*/}
-                {/*    {toggleFavorite ? "⭐ ✅" : "⭐ ❌"}*/}
-                {/*</button>*/}
-                <button type="button" className="delete-button" onClick={deleteData}>Delete</button>
+                <button type="button" onClick={handleSubmit}>Submit</button>
+                <button type="button" onClick={handleFavoriteSubmit}>Submit as Favorite</button>
+                <button type="button" onClick={deleteData} className="delete-button">Delete</button>
             </form>
 
             {showPopup && (
                 <div className="popup-overlay">
                     <div className="popup">
-                        <form onSubmit={handleFavoriteSubmit}>
+                        <form onSubmit={handleFavoriteNameSubmit}>
                             <input
                                 type="text"
                                 value={favoriteName}

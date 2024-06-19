@@ -7,7 +7,6 @@ import FavoriteView from "./components/FavoritesView";
 const App = () => {
     const [data, setData] = useState([]);
     const [favorites, setFavorites] = useState([]);
-    const [favoriteData, setFavoriteData] = useState('');
     const [input, setInput] = useState('');
 
 
@@ -16,7 +15,7 @@ const App = () => {
         if(!data.startsWith('{')){
             body = JSON.stringify({ data: {text: data } });
         }
-        let res = await fetch('http://localhost:5000/data', {
+        await fetch('http://localhost:5000/data', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
@@ -24,17 +23,7 @@ const App = () => {
             body: body
         });
 
-        let id = -1
-
-        if(res.status === 201){
-            let json = await res.json();
-            id = json['id'];
-        }
-
-
-        const updatedData = await fetchData();
-        setData(updatedData);
-        return id
+        await fetchData();
     };
 
     const deleteDataAndFavorites = async () => {
@@ -46,25 +35,16 @@ const App = () => {
             method: 'DELETE'
         });
 
-        const updatedData = await fetchData();
-        const updatedFavorites = await fetchFavorites();
-        setData(updatedData);
-        setFavorites(updatedFavorites);
+        await fetchData();
+        await fetchFavorites();
+
     };
 
     const fetchData = async () => {
         const response = await fetch('http://localhost:5000/data');
         const result = await response.json()
-
-        return await result;
+        setData(result);
     };
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         loadInitialData();
-    //     }, 1000); // 1000 milliseconds = 1 second
-    //     return () => clearInterval(interval); // This represents the cleanup function
-    // }, []);
 
     useEffect(() => {
         document.title = "NeoCoreSim";
@@ -80,21 +60,18 @@ const App = () => {
             },
             body: JSON.stringify({ data: data, name: name })
         });
-        const favorites =  await fetchFavorites();
-        setFavorites(favorites);
+        await fetchFavorites();
     };
 
     const fetchFavorites = async () => {
         const response = await fetch('http://localhost:5000/favorites');
         const result = await response.json();
-        return await result
+        setFavorites(result)
     };
 
     const loadInitialData = async () => {
-        const initialData = await fetchData();
-        const initialFavorites = await fetchFavorites();
-        setData(initialData);
-        setFavorites(initialFavorites);
+        await fetchData();
+        await fetchFavorites();
     };
 
     return (
